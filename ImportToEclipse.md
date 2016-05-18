@@ -10,4 +10,17 @@
 
 然后右击Project名称，在弹出的快捷菜单中选择"Properties"命令，将会弹出一个界面，然后在该界面中依次选择"Java Build Path" -> "Libraries" -> "Add External JARs..."，将下载的第三方JAR包导入工程。其中，有个地方需要注意，com.sun.jdi这个包需要导入JDK的tools.jar。  
 
-然而，你仍会发现部分类或者函数无法找到，这是因为Pivot Tracing使用了Protocol Buffers定义RPC协议，而这些Protocol Buffers文件在Maven编译源代码时才会生成对应的Java类，因此其他类在源代码中引用这些类则暂时无法找到，解决方法是先编译Pivot Tracing源代码再导入Eclipse工程。  
+然而，你仍会发现部分类或者函数无法找到，这是因为Pivot Tracing使用了Protocol Buffers定义RPC协议，而这些Protocol Buffers文件在Maven编译源代码时才会生成对应的Java类，因此其他类在源代码中引用这些类则暂时无法找到，解决方法是先编译Pivot Tracing源代码或者自己手动编译这些proto文件，再导入Eclipse工程  
+分别进入下列文件夹  
+```
+/tracing-framework/pivottracing/common
+/retro/aggregation
+/retro/throttling/
+/tracing-framework/xtrace/common
+/tracing-framework/tracingplane/client
+/tracing-framework/tracingplane/pubsub
+```
+然后运行下面的命令  
+```
+protoc --java_out=src/main/protobuf/ src/main/protobuf/*.proto
+```
