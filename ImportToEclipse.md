@@ -13,14 +13,14 @@
 然而，你仍会发现部分类或者函数无法找到，这是因为Pivot Tracing使用了Protocol Buffers定义RPC协议，而这些Protocol Buffers文件在Maven编译源代码时才会生成对应的Java类，因此其他类在源代码中引用这些类则暂时无法找到，解决方法是先编译Pivot Tracing源代码或者自己手动编译这些proto文件，再导入Eclipse工程  
 分别进入下列文件夹  
 ```
-/tracing-framework/pivottracing/common
-/retro/aggregation
-/retro/throttling/
-/tracing-framework/xtrace/common
-/tracing-framework/tracingplane/client
-/tracing-framework/tracingplane/pubsub
+tracing-framework/pivottracing/common
+tracing-framework/retro/aggregation
+tracing-framework/retro/throttling/
+tracing-framework/xtrace/common
+tracing-framework/tracingplane/client
+tracing-framework/tracingplane/pubsub
 ```
 然后运行下面的命令  
 ```
-protoc --java_out=src/main/protobuf/ src/main/protobuf/*.proto
+protoc --java_out=src/main/java/ src/main/protobuf/*.proto
 ```
